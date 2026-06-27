@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Μάθε Ελληνικά — Learn Greek</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=Noto+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --aegean: #1a5276;
+    --sea: #2e86c1;
+    --sky: #85c1e9;
+    --foam: #eaf4fb;
+    --white: #fafcff;
+    --sand: #f5f0e8;
+    --terracotta: #c0392b;
+    --gold: #d4a843;
+    --ink: #1a1a2e;
+    --mist: #6b7280;
+    --olive: #7d8c47;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--white);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--aegean);
+    color: white;
+    padding: 80px 24px 64px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 60px;
+    background: var(--white);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  .hero-greek {
+    font-family: 'Noto Serif', serif;
+    font-size: clamp(48px, 10vw, 96px);
+    letter-spacing: 0.05em;
+    opacity: 0.15;
+    line-height: 1;
+    margin-bottom: -20px;
+    user-select: none;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 6vw, 56px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .hero-sub {
+    font-family: 'Noto Serif', serif;
+    font-style: italic;
+    font-size: 22px;
+    opacity: 0.8;
+    margin-bottom: 12px;
+  }
+  .hero p {
+    font-size: 16px;
+    opacity: 0.7;
+    max-width: 480px;
+    margin: 0 auto 40px;
+  }
+  .hero-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+  .hero-nav a {
+    color: white;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.35);
+    padding: 8px 20px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .hero-nav a:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.6); }
+
+  /* LAYOUT */
+  .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+  section { padding: 64px 0; }
+  section + section { border-top: 1px solid #e8edf2; }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sea);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .section-intro {
+    color: var(--mist);
+    font-size: 15px;
+    max-width: 600px;
+    margin-bottom: 40px;
+  }
+
+  /* ROADMAP */
+  .roadmap {
+    display: grid;
+    gap: 16px;
+  }
+  .roadmap-item {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 16px;
+    align-items: start;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    background: var(--white);
+    transition: box-shadow 0.2s;
+  }
+  .roadmap-item:hover { box-shadow: 0 4px 16px rgba(26,82,118,0.1); }
+  .roadmap-num {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--foam);
+    color: var(--aegean);
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .roadmap-content h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .roadmap-content p {
+    font-size: 14px;
+    color: var(--mist);
+    line-height: 1.5;
+  }
+  .roadmap-tag {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: var(--foam);
+    color: var(--sea);
+  }
+
+  /* ALPHABET CARDS */
+  .alphabet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 12px;
+  }
+  .alpha-card {
+    perspective: 600px;
+    height: 110px;
+    cursor: pointer;
+  }
+  .alpha-inner {
+    position: relative;
+    width: 100%; height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.45s cubic-bezier(.4,0,.2,1);
+  }
+  .alpha-card.flipped .alpha-inner { transform: rotateY(180deg); }
+  .alpha-front, .alpha-back {
+    position: absolute;
+    width: 100%; height: 100%;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    border: 1px solid #dde4ed;
+  }
+  .alpha-front {
+    background: var(--white);
+  }
+  .alpha-front .greek-letter {
+    font-family: 'Noto Serif', serif;
+    font-size: 32px;
+    color: var(--aegean);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .alpha-front .latin-name {
+    font-size: 11px;
+    color: var(--mist);
+    letter-spacing: 0.06em;
+  }
+  .alpha-back {
+    background: var(--aegean);
+    color: white;
+    transform: rotateY(180deg);
+  }
+  .alpha-back .sound {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .alpha-back .example {
+    font-family: 'Noto Serif', serif;
+    font-size: 14px;
+    opacity: 0.8;
+  }
+  .alpha-back .meaning {
+    font-size: 11px;
+    opacity: 0.6;
+    margin-top: 2px;
+  }
+  .alpha-hint {
+    font-size: 12px;
+    color: var(--mist);
+    margin-bottom: 16px;
+  }
+
+  /* PHRASES */
+  .phrase-list { display: grid; gap: 12px; }
+  .phrase-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 16px;
+    align-items: center;
+    padding: 16px 20px;
+    border-radius: 10px;
+    background: var(--foam);
+    border-left: 3px solid var(--sea);
+  }
+  .phrase-greek {
+    font-family: 'Noto Serif', serif;
+    font-size: 17px;
+    color: var(--aegean);
+    font-weight: 400;
+  }
+  .phrase-phonetic {
+    font-size: 13px;
+    color: var(--mist);
+    font-style: italic;
+  }
+  .phrase-meaning {
+    font-size: 14px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .phrase-english {
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .phrase-cat {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sea);
+    opacity: 0.7;
+    white-space: nowrap;
+  }
+  @media (max-width: 600px) {
+    .phrase-card { grid-template-columns: 1fr; }
+    .phrase-cat { display: none; }
+  }
+
+  /* GRAMMAR */
+  .grammar-grid { display: grid; gap: 20px; }
+  .grammar-block {
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+  }
+  .grammar-block h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: var(--aegean);
+  }
+  .grammar-block p {
+    font-size: 14px;
+    color: var(--mist);
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+  .grammar-example {
+    background: var(--sand);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-family: 'Noto Serif', serif;
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .grammar-example span {
+    display: block;
+    font-size: 12px;
+    color: var(--mist);
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    margin-top: 4px;
+  }
+
+  /* RESOURCES */
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+  }
+  .resource-card {
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: block;
+  }
+  .resource-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+  .resource-icon { font-size: 26px; margin-bottom: 10px; }
+  .resource-name { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+  .resource-desc { font-size: 13px; color: var(--mist); line-height: 1.4; }
+  .resource-type {
+    margin-top: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--olive);
+  }
+
+  /* TABS */
+  .tabs { display: flex; gap: 4px; margin-bottom: 24px; border-bottom: 2px solid #e8edf2; }
+  .tab-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--mist);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .tab-btn.active { color: var(--aegean); border-bottom-color: var(--aegean); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* PROGRESS TRACKER */
+  .progress-box {
+    background: linear-gradient(135deg, var(--aegean), var(--sea));
+    border-radius: 16px;
+    padding: 28px 32px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .progress-text h3 { font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 4px; }
+  .progress-text p { font-size: 14px; opacity: 0.75; }
+  .progress-bar-wrap { flex: 1; min-width: 160px; }
+  .progress-label { font-size: 12px; opacity: 0.7; margin-bottom: 6px; }
+  .progress-bar {
+    height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; border-radius: 3px; background: var(--gold);
+    transition: width 1s ease;
+  }
+  .progress-count { font-size: 22px; font-weight: 700; margin-top: 4px; }
+
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 13px;
+  }
+  footer span { color: rgba(255,255,255,0.8); font-family: 'Noto Serif', serif; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-greek">ΑΒΓΔΕΖΗΘ</div>
+  <h1>Learn Greek</h1>
+  <div class="hero-sub">Μάθε Ελληνικά</div>
+  <p>A structured guide from the alphabet to real conversation — for curious beginners.</p>
+  <nav class="hero-nav">
+    <a href="#roadmap">Roadmap</a>
+    <a href="#alphabet">Alphabet</a>
+    <a href="#phrases">Phrases</a>
+    <a href="#grammar">Grammar</a>
+    <a href="#resources">Resources</a>
+  </nav>
+</div>
+
+<div class="container">
+
+  <!-- ROADMAP -->
+  <section id="roadmap">
+    <div class="section-label">Where to Start</div>
+    <h2 class="section-title">Your Learning Roadmap</h2>
+    <p class="section-intro">Modern Greek (Νέα Ελληνικά) is spoken by about 13 million people. Most learners reach conversational fluency in 600–750 hours. Here's how to structure your time.</p>
+
+    <div class="roadmap">
+      <div class="roadmap-item">
+        <div class="roadmap-num">1</div>
+        <div class="roadmap-content">
+          <h3>Master the Alphabet</h3>
+          <p>Greek uses its own script — 24 letters. You can learn to read and write all of them in 1–2 weeks. This unlocks everything: pronunciation, vocabulary recognition, and the joy of decoding signs in Greece.</p>
+          <span class="roadmap-tag">Weeks 1–2</span>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-num">2</div>
+        <div class="roadmap-content">
+          <h3>Pronunciation & Phonetics</h3>
+          <p>Greek is highly phonetic — words are pronounced exactly as spelled. Focus on the sounds that don't exist in English: γ (guttural g), χ (like Bach), and the double vowel combinations like αι, ει, οι (all sound like "ee").</p>
+          <span class="roadmap-tag">Weeks 2–4</span>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-num">3</div>
+        <div class="roadmap-content">
+          <h3>Core Vocabulary (500 words)</h3>
+          <p>Learn the most frequent 500 Greek words — these cover ~80% of everyday speech. Many are already familiar from English: θέατρο (théatro = theater), μουσική (mousikí = music), δημοκρατία (dimokratía = democracy).</p>
+          <span class="roadmap-tag">Months 1–3</span>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-num">4</div>
+        <div class="roadmap-content">
+          <h3>Basic Grammar Structure</h3>
+          <p>Greek has grammatical gender (masculine/feminine/neuter), noun cases, and verb conjugations. It's more complex than Spanish, but patterns emerge quickly. Focus on present tense verbs and basic sentence structure first.</p>
+          <span class="roadmap-tag">Months 2–6</span>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-num">5</div>
+        <div class="roadmap-content">
+          <h3>Listening & Speaking Practice</h3>
+          <p>Start with Greek music, simple YouTube channels, and podcasts for learners. Apps like iTalki connect you with native speakers for conversation practice — even 30 minutes a week makes a huge difference.</p>
+          <span class="roadmap-tag">Month 3 onward</span>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-num">6</div>
+        <div class="roadmap-content">
+          <h3>Immersion & Real Conversation</h3>
+          <p>By month 6, aim to watch Greek TV with Greek subtitles, read children's books, and hold simple conversations. A trip to Greece — or connecting with the Greek community in LA — will accelerate everything.</p>
+          <span class="roadmap-tag">Month 6+</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALPHABET -->
+  <section id="alphabet">
+    <div class="section-label">Step One</div>
+    <h2 class="section-title">The Greek Alphabet</h2>
+    <p class="section-intro">24 letters. Tap each card to reveal the sound and an example word.</p>
+    <p class="alpha-hint">👆 Tap a card to flip it</p>
+
+    <div class="alphabet-grid" id="alphaGrid"></div>
+
+    <div style="margin-top:32px; padding:20px; background:var(--foam); border-radius:12px;">
+      <strong style="font-size:14px; color:var(--aegean);">Key pronunciation notes:</strong>
+      <ul style="margin-top:10px; padding-left:18px; font-size:14px; color:var(--mist); display:grid; gap:6px;">
+        <li><strong style="color:var(--ink)">αι, ει, οι, υ</strong> — all pronounced like "ee" in "feet"</li>
+        <li><strong style="color:var(--ink)">αυ, ευ</strong> — pronounced "af/ef" before voiceless consonants, "av/ev" before voiced ones</li>
+        <li><strong style="color:var(--ink)">γ before ε/ι</strong> — sounds like "y" in "yes"</li>
+        <li><strong style="color:var(--ink)">Stress accent (΄)</strong> — always marked in written Greek; shifts meaning between words</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PHRASES -->
+  <section id="phrases">
+    <div class="section-label">Practical Language</div>
+    <h2 class="section-title">Essential Phrases</h2>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(this,'greetings')">Greetings</button>
+      <button class="tab-btn" onclick="switchTab(this,'courtesy')">Courtesy</button>
+      <button class="tab-btn" onclick="switchTab(this,'questions')">Questions</button>
+      <button class="tab-btn" onclick="switchTab(this,'numbers')">Numbers</button>
+    </div>
+
+    <div class="tab-panel active" id="tab-greetings">
+      <div class="phrase-list" id="phrases-greetings"></div>
+    </div>
+    <div class="tab-panel" id="tab-courtesy">
+      <div class="phrase-list" id="phrases-courtesy"></div>
+    </div>
+    <div class="tab-panel" id="tab-questions">
+      <div class="phrase-list" id="phrases-questions"></div>
+    </div>
+    <div class="tab-panel" id="tab-numbers">
+      <div class="phrase-list" id="phrases-numbers"></div>
+    </div>
+  </section>
+
+  <!-- GRAMMAR -->
+  <section id="grammar">
+    <div class="section-label">Building Blocks</div>
+    <h2 class="section-title">Grammar Essentials</h2>
+    <p class="section-intro">Greek grammar can feel complex at first, but these core concepts will get you speaking quickly.</p>
+
+    <div class="grammar-grid">
+      <div class="grammar-block">
+        <h3>Grammatical Gender</h3>
+        <p>Every Greek noun is masculine (αρσενικό), feminine (θηλυκό), or neuter (ουδέτερο). The article changes to match. Articles also change based on grammatical case (subject, object, etc.).</p>
+        <div class="grammar-example">
+          ο άντρας — the man (masculine)<br>
+          η γυναίκα — the woman (feminine)<br>
+          το παιδί — the child (neuter)
+          <span>Definite articles: ο (m), η (f), το (n)</span>
+        </div>
+      </div>
+
+      <div class="grammar-block">
+        <h3>Verb Conjugation — Present Tense</h3>
+        <p>Greek verbs change ending based on person and number. Most verbs follow one of two patterns. The good news: once you learn the pattern, it's consistent.</p>
+        <div class="grammar-example">
+          μιλώ — I speak<br>
+          μιλάς — you speak<br>
+          μιλά — he/she speaks<br>
+          μιλάμε — we speak<br>
+          μιλάτε — you (plural) speak<br>
+          μιλάνε — they speak
+          <span>Verb: μιλάω/μιλώ (to speak)</span>
+        </div>
+      </div>
+
+      <div class="grammar-block">
+        <h3>Word Order</h3>
+        <p>Greek word order is relatively flexible (Subject-Verb-Object is most common), but word endings carry the grammatical meaning — so you can rearrange for emphasis without losing clarity.</p>
+        <div class="grammar-example">
+          Ο Γιάννης αγαπά την Μαρία.<br>
+          Την Μαρία αγαπά ο Γιάννης.
+          <span>Both mean "John loves Maria" — emphasis shifts, meaning doesn't.</span>
+        </div>
+      </div>
+
+      <div class="grammar-block">
+        <h3>Negation</h3>
+        <p>Negating a sentence is simple: place δεν (den) before a verb. For commands and subjunctives, use μην (min) instead.</p>
+        <div class="grammar-example">
+          Μιλώ ελληνικά. — I speak Greek.<br>
+          Δεν μιλώ ελληνικά. — I don't speak Greek.
+          <span>δεν = don't/doesn't/didn't (with indicative verbs)</span>
+        </div>
+      </div>
+
+      <div class="grammar-block">
+        <h3>Useful Connectors</h3>
+        <p>A handful of small words will let you build longer, more natural sentences from early on.</p>
+        <div class="grammar-example">
+          και (ke) — and &nbsp;|&nbsp; ή (i) — or<br>
+          αλλά (alá) — but &nbsp;|&nbsp; γιατί (yatí) — because<br>
+          όταν (ótan) — when &nbsp;|&nbsp; αν (an) — if<br>
+          όμως (ómos) — however
+          <span>These work the same way as their English equivalents.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESOURCES -->
+  <section id="resources">
+    <div class="section-label">Tools & Materials</div>
+    <h2 class="section-title">Recommended Resources</h2>
+    <p class="section-intro">The best combination: one app for daily vocab, one structured course, and one source of authentic Greek media.</p>
+
+    <div class="resources-grid">
+      <div class="resource-card">
+        <div class="resource-icon">📱</div>
+        <div class="resource-name">Duolingo</div>
+        <div class="resource-desc">Good for daily habit-building and alphabet introduction. Best used as a warm-up, not the main course.</div>
+        <div class="resource-type">Free App</div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">🃏</div>
+        <div class="resource-name">Anki</div>
+        <div class="resource-desc">Spaced-repetition flashcards. Download the "Greek Top 500" or "Greek Frequency List" decks. Best vocab tool available.</div>
+        <div class="resource-type">Free App</div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">🎧</div>
+        <div class="resource-name">GreekPod101</div>
+        <div class="resource-desc">Audio lessons from absolute beginner to advanced. Podcast format makes it easy to learn during commutes.</div>
+        <div class="resource-type">Paid / Free Trial</div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">📘</div>
+        <div class="resource-name">Pimsleur Greek</div>
+        <div class="resource-desc">Audio-focused, builds listening comprehension and speaking from day one. Great for pronunciation.</div>
+        <div class="resource-type">Paid</div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">💬</div>
+        <div class="resource-name">iTalki</div>
+        <div class="resource-desc">Find a Greek tutor or language exchange partner for live conversation practice. Worth every penny.</div>
+        <div class="resource-type">Paid (per lesson)</div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">📺</div>
+        <div class="resource-name">Easy Greek (YouTube)</div>
+        <div class="resource-desc">Street interviews with Greeks, subtitled in both Greek and English. Excellent real-world listening practice.</div>
+        <div class="resource-type">Free</div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">📖</div>
+        <div class="resource-name">Glossika</div>
+        <div class="resource-desc">Massive sentence repetition drills. Builds natural sentence patterns through massive audio exposure.</div>
+        <div class="resource-type">Paid</div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">🔤</div>
+        <div class="resource-name">LanguageTransfer</div>
+        <div class="resource-desc">Free audio course that teaches you to construct Greek from first principles. Surprisingly effective for grammar.</div>
+        <div class="resource-type">Free</div>
+      </div>
+    </div>
+
+    <!-- Progress tracker -->
+    <div style="margin-top:40px;">
+      <div class="progress-box">
+        <div class="progress-text">
+          <h3>Track the Alphabet</h3>
+          <p>You've flipped <span id="flippedCount">0</span> of 24 letters so far in this session.</p>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-label">Alphabet explored</div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width:0%"></div>
+          </div>
+          <div class="progress-count" id="progressPct">0 / 24</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <span>Καλή επιτυχία</span> — Good luck on your journey into Greek.
+</footer>
+
+<script>
+const alphabet = [
+  { greek: 'Αα', name: 'Alpha', sound: 'a', example: 'αγάπη', meaning: 'love' },
+  { greek: 'Ββ', name: 'Beta', sound: 'v', example: 'βιβλίο', meaning: 'book' },
+  { greek: 'Γγ', name: 'Gamma', sound: 'g / y', example: 'γάτα', meaning: 'cat' },
+  { greek: 'Δδ', name: 'Delta', sound: 'th (the)', example: 'δρόμος', meaning: 'road' },
+  { greek: 'Εε', name: 'Epsilon', sound: 'e', example: 'ελιά', meaning: 'olive' },
+  { greek: 'Ζζ', name: 'Zeta', sound: 'z', example: 'ζωή', meaning: 'life' },
+  { greek: 'Ηη', name: 'Eta', sound: 'ee', example: 'ήλιος', meaning: 'sun' },
+  { greek: 'Θθ', name: 'Theta', sound: 'th (think)', example: 'θάλασσα', meaning: 'sea' },
+  { greek: 'Ιι', name: 'Iota', sound: 'ee', example: 'ιδέα', meaning: 'idea' },
+  { greek: 'Κκ', name: 'Kappa', sound: 'k', example: 'καφές', meaning: 'coffee' },
+  { greek: 'Λλ', name: 'Lambda', sound: 'l', example: 'λέμα', meaning: 'word' },
+  { greek: 'Μμ', name: 'Mu', sound: 'm', example: 'μάμα', meaning: 'mom' },
+  { greek: 'Νν', name: 'Nu', sound: 'n', example: 'νερό', meaning: 'water' },
+  { greek: 'Ξξ', name: 'Xi', sound: 'x / ks', example: 'ξένος', meaning: 'stranger' },
+  { greek: 'Οο', name: 'Omicron', sound: 'o', example: 'όνομα', meaning: 'name' },
+  { greek: 'Ππ', name: 'Pi', sound: 'p', example: 'πατέρας', meaning: 'father' },
+  { greek: 'Ρρ', name: 'Rho', sound: 'r (rolled)', example: 'ρόδι', meaning: 'pomegranate' },
+  { greek: 'Σσς', name: 'Sigma', sound: 's', example: 'σπίτι', meaning: 'house' },
+  { greek: 'Ττ', name: 'Tau', sound: 't', example: 'τραπέζι', meaning: 'table' },
+  { greek: 'Υυ', name: 'Upsilon', sound: 'ee', example: 'ύδωρ', meaning: 'water (formal)' },
+  { greek: 'Φφ', name: 'Phi', sound: 'f', example: 'φίλος', meaning: 'friend' },
+  { greek: 'Χχ', name: 'Chi', sound: 'ch (Bach)', example: 'χαρά', meaning: 'joy' },
+  { greek: 'Ψψ', name: 'Psi', sound: 'ps', example: 'ψάρι', meaning: 'fish' },
+  { greek: 'Ωω', name: 'Omega', sound: 'o', example: 'ώρα', meaning: 'hour / time' },
+];
+
+const phrases = {
+  greetings: [
+    { greek: 'Γεια σου / Γεια σας', phonetic: 'YA su / YA sas', english: 'Hello / Hi (informal/formal)', cat: 'Hello' },
+    { greek: 'Καλημέρα', phonetic: 'kali-ME-ra', english: 'Good morning', cat: 'Greeting' },
+    { greek: 'Καλησπέρα', phonetic: 'kali-SPE-ra', english: 'Good evening', cat: 'Greeting' },
+    { greek: 'Καληνύχτα', phonetic: 'kali-NYCH-ta', english: 'Good night', cat: 'Greeting' },
+    { greek: 'Τι κάνεις;', phonetic: 'ti KA-nis', english: 'How are you?', cat: 'Question' },
+    { greek: 'Καλά, ευχαριστώ', phonetic: 'ka-LA, ef-cha-ri-STO', english: 'Fine, thank you', cat: 'Response' },
+    { greek: 'Με λένε...', phonetic: 'me LE-ne', english: 'My name is...', cat: 'Intro' },
+    { greek: 'Αντίο / Γεια', phonetic: 'an-DI-o / ya', english: 'Goodbye / Bye', cat: 'Farewell' },
+  ],
+  courtesy: [
+    { greek: 'Παρακαλώ', phonetic: 'pa-ra-ka-LO', english: 'Please / You\'re welcome', cat: 'Courtesy' },
+    { greek: 'Ευχαριστώ', phonetic: 'ef-cha-ri-STO', english: 'Thank you', cat: 'Courtesy' },
+    { greek: 'Συγγνώμη', phonetic: 'sig-NO-mi', english: 'Sorry / Excuse me', cat: 'Courtesy' },
+    { greek: 'Δεν καταλαβαίνω', phonetic: 'den ka-ta-la-VE-no', english: 'I don\'t understand', cat: 'Essential' },
+    { greek: 'Μπορείτε να επαναλάβετε;', phonetic: 'bo-RI-te na epa-na-LA-ve-te', english: 'Can you repeat that?', cat: 'Essential' },
+    { greek: 'Μιλάτε αγγλικά;', phonetic: 'mi-LA-te ag-gli-KA', english: 'Do you speak English?', cat: 'Essential' },
+    { greek: 'Ναι / Όχι', phonetic: 'ne / O-chi', english: 'Yes / No', cat: 'Basic' },
+    { greek: 'Μάλιστα', phonetic: 'MA-li-sta', english: 'Certainly / Indeed', cat: 'Formal' },
+  ],
+  questions: [
+    { greek: 'Πού είναι...;', phonetic: 'PU I-ne', english: 'Where is...?', cat: 'Location' },
+    { greek: 'Πόσο κάνει;', phonetic: 'PO-so KA-ni', english: 'How much does it cost?', cat: 'Shopping' },
+    { greek: 'Τι ώρα είναι;', phonetic: 'ti O-ra I-ne', english: 'What time is it?', cat: 'Time' },
+    { greek: 'Πότε;', phonetic: 'PO-te', english: 'When?', cat: 'Question' },
+    { greek: 'Γιατί;', phonetic: 'ya-TI', english: 'Why?', cat: 'Question' },
+    { greek: 'Πώς;', phonetic: 'pos', english: 'How?', cat: 'Question' },
+    { greek: 'Τι είναι αυτό;', phonetic: 'ti I-ne af-TO', english: 'What is this?', cat: 'Question' },
+    { greek: 'Έχετε...;', phonetic: 'E-che-te', english: 'Do you have...?', cat: 'Shopping' },
+  ],
+  numbers: [
+    { greek: 'ένα, δύο, τρία', phonetic: 'E-na, DI-o, TRI-a', english: 'one, two, three', cat: '1–3' },
+    { greek: 'τέσσερα, πέντε, έξι', phonetic: 'TE-se-ra, PEN-de, EK-si', english: 'four, five, six', cat: '4–6' },
+    { greek: 'επτά, οκτώ, εννέα', phonetic: 'ep-TA, ok-TO, e-NE-a', english: 'seven, eight, nine', cat: '7–9' },
+    { greek: 'δέκα, είκοσι, τριάντα', phonetic: 'DE-ka, I-ko-si, tri-AN-da', english: 'ten, twenty, thirty', cat: '10s' },
+    { greek: 'εκατό, χίλια', phonetic: 'e-ka-TO, CHI-lia', english: 'one hundred, one thousand', cat: 'Large' },
+    { greek: 'πρώτος, δεύτερος', phonetic: 'PRO-tos, DEF-te-ros', english: 'first, second', cat: 'Ordinal' },
+    { greek: 'μισό, όλο', phonetic: 'mi-SO, O-lo', english: 'half, whole/all', cat: 'Parts' },
+    { greek: 'μηδέν', phonetic: 'mi-DEN', english: 'zero', cat: 'Number' },
+  ]
+};
+
+// Build alphabet grid
+const grid = document.getElementById('alphaGrid');
+let flippedSet = new Set();
+
+alphabet.forEach((l, i) => {
+  const card = document.createElement('div');
+  card.className = 'alpha-card';
+  card.innerHTML = `
+    <div class="alpha-inner">
+      <div class="alpha-front">
+        <div class="greek-letter">${l.greek}</div>
+        <div class="latin-name">${l.name}</div>
+      </div>
+      <div class="alpha-back">
+        <div class="sound">/${l.sound}/</div>
+        <div class="example">${l.example}</div>
+        <div class="meaning">${l.meaning}</div>
+      </div>
+    </div>`;
+  card.addEventListener('click', () => {
+    card.classList.toggle('flipped');
+    if (card.classList.contains('flipped')) {
+      flippedSet.add(i);
+    } else {
+      flippedSet.delete(i);
+    }
+    updateProgress();
+  });
+  grid.appendChild(card);
+});
+
+function updateProgress() {
+  const n = flippedSet.size;
+  document.getElementById('flippedCount').textContent = n;
+  document.getElementById('progressFill').style.width = (n / 24 * 100) + '%';
+  document.getElementById('progressPct').textContent = n + ' / 24';
+}
+
+// Build phrase lists
+Object.entries(phrases).forEach(([cat, list]) => {
+  const container = document.getElementById('phrases-' + cat);
+  list.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'phrase-card';
+    div.innerHTML = `
+      <div>
+        <div class="phrase-greek">${p.greek}</div>
+        <div class="phrase-phonetic">${p.phonetic}</div>
+      </div>
+      <div class="phrase-english">${p.english}</div>
+      <div class="phrase-cat">${p.cat}</div>`;
+    container.appendChild(div);
+  });
+});
+
+// Tab switching
+function switchTab(btn, cat) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + cat).classList.add('active');
+}
+</script>
+</body>
+</html>
