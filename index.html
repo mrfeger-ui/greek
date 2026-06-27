@@ -222,9 +222,12 @@
     transform: rotateY(180deg);
   }
   .alpha-back .sound {
-    font-size: 22px;
+    font-size: 15px;
     font-weight: 600;
     margin-bottom: 4px;
+    text-align: center;
+    padding: 0 6px;
+    line-height: 1.3;
   }
   .alpha-back .example {
     font-family: 'Noto Serif', serif;
@@ -676,30 +679,30 @@
 
 <script>
 const alphabet = [
-  { greek: 'Αα', name: 'Alpha', sound: 'a', example: 'αγάπη', meaning: 'love' },
-  { greek: 'Ββ', name: 'Beta', sound: 'v', example: 'βιβλίο', meaning: 'book' },
-  { greek: 'Γγ', name: 'Gamma', sound: 'g / y', example: 'γάτα', meaning: 'cat' },
-  { greek: 'Δδ', name: 'Delta', sound: 'th (the)', example: 'δρόμος', meaning: 'road' },
-  { greek: 'Εε', name: 'Epsilon', sound: 'e', example: 'ελιά', meaning: 'olive' },
-  { greek: 'Ζζ', name: 'Zeta', sound: 'z', example: 'ζωή', meaning: 'life' },
-  { greek: 'Ηη', name: 'Eta', sound: 'ee', example: 'ήλιος', meaning: 'sun' },
-  { greek: 'Θθ', name: 'Theta', sound: 'th (think)', example: 'θάλασσα', meaning: 'sea' },
-  { greek: 'Ιι', name: 'Iota', sound: 'ee', example: 'ιδέα', meaning: 'idea' },
-  { greek: 'Κκ', name: 'Kappa', sound: 'k', example: 'καφές', meaning: 'coffee' },
-  { greek: 'Λλ', name: 'Lambda', sound: 'l', example: 'λέμα', meaning: 'word' },
-  { greek: 'Μμ', name: 'Mu', sound: 'm', example: 'μάμα', meaning: 'mom' },
-  { greek: 'Νν', name: 'Nu', sound: 'n', example: 'νερό', meaning: 'water' },
-  { greek: 'Ξξ', name: 'Xi', sound: 'x / ks', example: 'ξένος', meaning: 'stranger' },
-  { greek: 'Οο', name: 'Omicron', sound: 'o', example: 'όνομα', meaning: 'name' },
-  { greek: 'Ππ', name: 'Pi', sound: 'p', example: 'πατέρας', meaning: 'father' },
-  { greek: 'Ρρ', name: 'Rho', sound: 'r (rolled)', example: 'ρόδι', meaning: 'pomegranate' },
-  { greek: 'Σσς', name: 'Sigma', sound: 's', example: 'σπίτι', meaning: 'house' },
-  { greek: 'Ττ', name: 'Tau', sound: 't', example: 'τραπέζι', meaning: 'table' },
-  { greek: 'Υυ', name: 'Upsilon', sound: 'ee', example: 'ύδωρ', meaning: 'water (formal)' },
-  { greek: 'Φφ', name: 'Phi', sound: 'f', example: 'φίλος', meaning: 'friend' },
-  { greek: 'Χχ', name: 'Chi', sound: 'ch (Bach)', example: 'χαρά', meaning: 'joy' },
-  { greek: 'Ψψ', name: 'Psi', sound: 'ps', example: 'ψάρι', meaning: 'fish' },
-  { greek: 'Ωω', name: 'Omega', sound: 'o', example: 'ώρα', meaning: 'hour / time' },
+  { greek: 'Αα', name: 'Alpha',   sound: '"ah" like father',      example: 'αγάπη',   meaning: 'love' },
+  { greek: 'Ββ', name: 'Beta',    sound: '"v" like vine',          example: 'βιβλίο',  meaning: 'book' },
+  { greek: 'Γγ', name: 'Gamma',   sound: '"y" like yes (before e/i), guttural "gh" elsewhere', example: 'γάτα', meaning: 'cat' },
+  { greek: 'Δδ', name: 'Delta',   sound: '"th" like the',          example: 'δρόμος',  meaning: 'road' },
+  { greek: 'Εε', name: 'Epsilon', sound: '"eh" like bed',          example: 'ελιά',    meaning: 'olive' },
+  { greek: 'Ζζ', name: 'Zeta',   sound: '"z" like zoo',           example: 'ζωή',     meaning: 'life' },
+  { greek: 'Ηη', name: 'Eta',    sound: '"ee" like feet',         example: 'ήλιος',   meaning: 'sun' },
+  { greek: 'Θθ', name: 'Theta',  sound: '"th" like think',        example: 'θάλασσα', meaning: 'sea' },
+  { greek: 'Ιι', name: 'Iota',   sound: '"ee" like feet',         example: 'ιδέα',    meaning: 'idea' },
+  { greek: 'Κκ', name: 'Kappa',  sound: '"k" like kite',          example: 'καφές',   meaning: 'coffee' },
+  { greek: 'Λλ', name: 'Lambda', sound: '"l" like lamp',          example: 'λέμα',    meaning: 'word' },
+  { greek: 'Μμ', name: 'Mu',     sound: '"m" like moon',          example: 'μάμα',    meaning: 'mom' },
+  { greek: 'Νν', name: 'Nu',     sound: '"n" like night',         example: 'νερό',    meaning: 'water' },
+  { greek: 'Ξξ', name: 'Xi',     sound: '"x" like fox',           example: 'ξένος',   meaning: 'stranger' },
+  { greek: 'Οο', name: 'Omicron',sound: '"oh" like open',         example: 'όνομα',   meaning: 'name' },
+  { greek: 'Ππ', name: 'Pi',     sound: '"p" like pen',           example: 'πατέρας', meaning: 'father' },
+  { greek: 'Ρρ', name: 'Rho',    sound: '"r" rolled like Spanish r', example: 'ρόδι', meaning: 'pomegranate' },
+  { greek: 'Σσς', name: 'Sigma', sound: '"s" like sun',           example: 'σπίτι',   meaning: 'house' },
+  { greek: 'Ττ', name: 'Tau',    sound: '"t" like top',           example: 'τραπέζι', meaning: 'table' },
+  { greek: 'Υυ', name: 'Upsilon',sound: '"ee" like feet',         example: 'ύδωρ',    meaning: 'water (formal)' },
+  { greek: 'Φφ', name: 'Phi',    sound: '"f" like phone',         example: 'φίλος',   meaning: 'friend' },
+  { greek: 'Χχ', name: 'Chi',    sound: '"ch" like Bach (breathy)', example: 'χαρά',  meaning: 'joy' },
+  { greek: 'Ψψ', name: 'Psi',    sound: '"ps" like lapse',        example: 'ψάρι',    meaning: 'fish' },
+  { greek: 'Ωω', name: 'Omega',  sound: '"oh" like open',         example: 'ώρα',     meaning: 'hour / time' },
 ];
 
 const phrases = {
@@ -759,7 +762,7 @@ alphabet.forEach((l, i) => {
         <div class="latin-name">${l.name}</div>
       </div>
       <div class="alpha-back">
-        <div class="sound">/${l.sound}/</div>
+        <div class="sound">${l.sound}</div>
         <div class="example">${l.example}</div>
         <div class="meaning">${l.meaning}</div>
       </div>
